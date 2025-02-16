@@ -6,7 +6,6 @@ int main() {
 	
 	InitWindow(1500, 768, "PONG");
 	SetWindowState(FLAG_VSYNC_HINT);
-	InitAudioDevice();
 	int game_over = 0;
 	float ballposx = GetScreenWidth() / 2; float ballposy =GetScreenHeight()/2;
 	float left_racket_posx = 10;
@@ -23,7 +22,7 @@ int main() {
 	char scoreleft = '0';
 	char scoreright='0';
 	
-	while (!game_over || !WindowShouldClose()) {
+	while (!WindowShouldClose()) {
 		ballposx += ballspeedx;
 		ballposy += ballspeedy;
 		if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
@@ -78,6 +77,7 @@ int main() {
 		if (scoreleft > 56 || scoreright > 56) {
 			game_over = 1;
 			BeginDrawing();
+			ClearBackground(RED);
 			DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
 			EndDrawing();
 			if (IsKeyPressed(KEY_SPACE)) {
