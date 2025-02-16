@@ -23,7 +23,7 @@ int main() {
 	char scoreleft = '0';
 	char scoreright='0';
 	
-	while (!game_over && !WindowShouldClose()) {
+	while (!game_over || !WindowShouldClose()) {
 		ballposx += ballspeedx;
 		ballposy += ballspeedy;
 		if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
