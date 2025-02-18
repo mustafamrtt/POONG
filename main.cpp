@@ -3,11 +3,11 @@
 #include <time.h>
 
 int main() {
-	
-	InitWindow(1500, 768, "PONG");
+
+	InitWindow(1500,768, "PONG");
 	SetWindowState(FLAG_VSYNC_HINT);
 	int game_over = 0;
-	float ballposx = GetScreenWidth() / 2; float ballposy =GetScreenHeight()/2;
+	float ballposx = GetScreenWidth() / 2; float ballposy = GetScreenHeight() / 2;
 	float left_racket_posx = 10;
 	float right_racket_posx = GetScreenWidth() - 10;
 	float left_racket_posy = GetScreenHeight() / 2;
@@ -20,89 +20,232 @@ int main() {
 	float ballspeedy = 3;
 	int ballradius = 10;
 	char scoreleft = '0';
-	char scoreright='0';
-	
+	char scoreright = '0';
+	int player2 = 0;
+	int player1 = 0;
+	float singlepbuttonpos = GetScreenHeight() / 2 +50 ;
+	float twopbuttonpos = GetScreenHeight() / 2 +100;
+	int buttonflag = 0;
 	while (!WindowShouldClose()) {
-		ballposx += ballspeedx;
-		ballposy += ballspeedy;
-		if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
-			left_racket_posy -= l_racket_speed;
 
-		}
-		if (IsKeyDown(KEY_S) && left_racket_posy < GetScreenHeight() - 150) {
-			left_racket_posy += l_racket_speed;
-		}
-		if (IsKeyDown(KEY_UP) && right_racket_posy > 5) {
-			right_racket_posy -= r_racket_speed;
-		}
-		if (IsKeyDown(KEY_DOWN) && right_racket_posy < GetScreenHeight() - 150) {
-			right_racket_posy += r_racket_speed;
-		}
-		if (ballposy == GetScreenHeight() || ballposy == 0) {
-			ballspeedy = -ballspeedy;
+		
 
-		}
-		if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
-			ballspeedx = -ballspeedx * 1.1;
+		if (player2==1 ) {
+			
+			ballposx += ballspeedx;
+			ballposy += ballspeedy;
+			if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
+				left_racket_posy -= l_racket_speed;
 
+			}
+			if (IsKeyDown(KEY_S) && left_racket_posy < GetScreenHeight() - 150) {
+				left_racket_posy += l_racket_speed;
+			}
+			if (IsKeyDown(KEY_UP) && right_racket_posy > 5) {
+				right_racket_posy -= r_racket_speed;
+			}
+			if (IsKeyDown(KEY_DOWN) && right_racket_posy < GetScreenHeight() - 150) {
+				right_racket_posy += r_racket_speed;
+			}
+			if (ballposy == GetScreenHeight() || ballposy == 0) {
+				ballspeedy = -ballspeedy;
 
-
-
-
-
-		}
-		if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
-
-			ballspeedx = -ballspeedx * 1.1;
+			}
+			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
+				ballspeedx = -ballspeedx * 1.1;
 
 
 
-		}
-		if (ballposx < 0) {
-			ballposx = GetScreenWidth() / 2;
-			ballposy = GetScreenHeight() / 2;
-			ballspeedx = 3;
-			ballspeedy = 3;
-			scoreright++;
 
-		}
-		if (ballposx > GetScreenWidth()) {
-			ballposx = GetScreenWidth() / 2;
-			ballposy = GetScreenHeight() / 2;
-			ballspeedx = 3;
-			ballspeedy = 3;
-			scoreleft++;
-		}
 
-		if (scoreleft > 56 || scoreright > 56) {
-			game_over = 1;
-			BeginDrawing();
-			ClearBackground(RED);
-			DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
-			EndDrawing();
-			if (IsKeyPressed(KEY_SPACE)) {
-				game_over = 0;
-				scoreleft = '0';
-				scoreright = '0';
+
+			}
+			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
+
+				ballspeedx = -ballspeedx * 1.1;
+
+
+
+			}
+			if (ballposx < 0) {
 				ballposx = GetScreenWidth() / 2;
 				ballposy = GetScreenHeight() / 2;
+				ballspeedx = -3;
+				ballspeedy = -3;
+				scoreright++;
+
+			}
+			if (ballposx > GetScreenWidth()) {
+				ballposx = GetScreenWidth() / 2;
+				ballposy = GetScreenHeight() / 2;
+				ballspeedx = 3;
+				ballspeedy = 3;
+				scoreleft++;
+			}
+
+			if (scoreleft > 56 || scoreright > 56) {
+				game_over = 1;
+				BeginDrawing();
+				ClearBackground(RED);
+				DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
+				EndDrawing();
+				if (IsKeyPressed(KEY_SPACE)) {
+					game_over = 0;
+					scoreleft = '0';
+					scoreright = '0';
+					ballposx = GetScreenWidth() / 2;
+					ballposy = GetScreenHeight() / 2;
+
+				}
+
+			}
+			else if (game_over == 0) {
+
+				BeginDrawing();
+				DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
+
+				ClearBackground(BLACK);
+
+				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
+				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
+
+				DrawTextCodepoint(GetFontDefault(), scoreright, { 100,100 }, 50, RED);
+				DrawTextCodepoint(GetFontDefault(), scoreleft, { 1300,100 }, 50, RED);
+
+				EndDrawing();
+
+
+			}
+		}
+		else if(player1==1)  {
+			ballposx += ballspeedx;
+			ballposy += ballspeedy;
+			if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
+				left_racket_posy -= l_racket_speed;
+
+			}
+			if (IsKeyDown(KEY_S) && left_racket_posy < GetScreenHeight() - 150) {
+				left_racket_posy += l_racket_speed;
+			}
+			if (ballposy>right_racket_posy&& right_racket_posy<GetScreenHeight()-150&&ballposx>500) {
+				
+				right_racket_posy += r_racket_speed;
+			}
+			if (ballposy<right_racket_posy&&ballposx>500) {
+				right_racket_posy -= r_racket_speed;
+			}
+			if (ballposy == GetScreenHeight() || ballposy == 0) {
+				ballspeedy = -ballspeedy;
+
+			}
+			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
+				ballspeedx = -ballspeedx * 1.1;
+
+
+
+
+
+
+			}
+			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
+
+				ballspeedx = -ballspeedx * 1.1;
+
+
+
+			}
+			if (ballposx < 0) {
+				ballposx = GetScreenWidth() / 2;
+				ballposy = GetScreenHeight() / 2;
+				ballspeedx = -3;
+				ballspeedy = -3;
+				scoreright++;
+
+			}
+			if (ballposx > GetScreenWidth()) {
+				ballposx = GetScreenWidth() / 2;
+				ballposy = GetScreenHeight() / 2;
+				ballspeedx = 3;
+				ballspeedy = 3;
+				scoreleft++;
+			}
+
+			if (scoreleft > 56 || scoreright > 56) {
+				game_over = 1;
+				BeginDrawing();
+				ClearBackground(RED);
+				DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
+				EndDrawing();
+				if (IsKeyPressed(KEY_SPACE)) {
+					game_over = 0;
+					scoreleft = '0';
+					scoreright = '0';
+					ballposx = GetScreenWidth() / 2;
+					ballposy = GetScreenHeight() / 2;
+
+				}
+
+			}
+			else if (game_over == 0) {
+
+				BeginDrawing();
+				DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
+
+				ClearBackground(BLACK);
+
+				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
+				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
+
+				DrawTextCodepoint(GetFontDefault(), scoreright, { 100,100 }, 50, RED);
+				DrawTextCodepoint(GetFontDefault(), scoreleft, { 1300,100 }, 50, RED);
+
+				EndDrawing();
+
 
 			}
 
+
 		}
-		else if(game_over==0){
-
+		else {
 			BeginDrawing();
-			DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
+			DrawText("for selection:K-I\nfor rackets:W-S-arrow_up-arrow_down\nfor replay:SPACE ", GetScreenWidth() / 2-100, GetScreenHeight() / 2 + 100, 30, WHITE);
+			if (buttonflag == 1) {
+				DrawText("POONG", GetScreenWidth() / 2-200, GetScreenHeight() / 2-50, 50, RED);
+				DrawText("Single Player", GetScreenWidth() / 2-200, singlepbuttonpos-50, 50, RED);
+				DrawText("Two Player", GetScreenWidth() / 2-200, twopbuttonpos-50, 50, WHITE);
+			}
+			if (buttonflag == 0) {
+				DrawText("POONG", GetScreenWidth() / 2-200, GetScreenHeight() / 2-50, 50, RED);
+				DrawText("Single Player", GetScreenWidth() / 2-200, singlepbuttonpos-50, 50, WHITE);
+				DrawText("Two Player", GetScreenWidth() / 2-200, twopbuttonpos-50, 50, RED);
+			}
+			if (IsKeyDown(KEY_K)) {
+				EndDrawing();
+				BeginDrawing();
+				
+				buttonflag = 1;
+				DrawText("POONG", GetScreenWidth() / 2-200, GetScreenHeight() / 2-50, 50, RED);
+				DrawText("Single Player", GetScreenWidth() / 2-200, singlepbuttonpos-50, 50, RED);
+				DrawText("Two Player", GetScreenWidth() / 2-200, twopbuttonpos-50, 50, WHITE);
+				EndDrawing();
 
-			ClearBackground(BLACK);
 
-			DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
-			DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
-			DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
+			}
+			if (IsKeyDown(KEY_I)) {
+				DrawText("POONG", GetScreenWidth() / 2-200, GetScreenHeight() / 2-50, 50, RED);
+				DrawText("Single Player", GetScreenWidth() / 2-200, singlepbuttonpos-50, 50, WHITE);
+				DrawText("Two Player", GetScreenWidth() / 2-200, twopbuttonpos-50, 50, RED);
+				buttonflag = 0;
 
-			DrawTextCodepoint(GetFontDefault(), scoreright, { 100,100 }, 50, RED);
-			DrawTextCodepoint(GetFontDefault(), scoreleft, { 1400,100 }, 50, RED);
+			}
+			if (buttonflag==1 && IsKeyDown(KEY_SPACE)) {
+				player2 = 1;
+			}
+			if (buttonflag == 0 && IsKeyDown(KEY_SPACE)) {
+				player1 = 1;
+			}
 
 			EndDrawing();
 
