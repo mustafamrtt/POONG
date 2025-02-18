@@ -21,8 +21,8 @@ int main() {
 	int ballradius = 10;
 	char scoreleft = '0';
 	char scoreright = '0';
-	int player2 = 0;
-	int player1 = 0;
+	int player = 0;
+	
 	float singlepbuttonpos = GetScreenHeight() / 2 +50 ;
 	float twopbuttonpos = GetScreenHeight() / 2 +100;
 	int buttonflag = 0;
@@ -30,7 +30,7 @@ int main() {
 
 		
 
-		if (player2==1 ) {
+		if (player==2 ) {
 			
 			ballposx += ballspeedx;
 			ballposy += ballspeedy;
@@ -118,7 +118,7 @@ int main() {
 
 			}
 		}
-		else if(player1==1)  {
+		else if(player==1)  {
 			ballposx += ballspeedx;
 			ballposy += ballspeedy;
 			if (IsKeyDown(KEY_W) && left_racket_posy > 5) {
@@ -241,10 +241,10 @@ int main() {
 
 			}
 			if (buttonflag==1 && IsKeyDown(KEY_SPACE)) {
-				player2 = 1;
+				player = 2;
 			}
 			if (buttonflag == 0 && IsKeyDown(KEY_SPACE)) {
-				player1 = 1;
+				player = 1;
 			}
 
 			EndDrawing();
