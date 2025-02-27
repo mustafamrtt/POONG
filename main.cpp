@@ -112,7 +112,7 @@ int main() {
 				DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
 
 				ClearBackground(BLACK);
-				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawCircle(ballposx, ballposy, ballradius, RED);
 				DrawTextureEx(texture, { ballposx - 9,ballposy - 9 }, 1, 0.15, RED);
 				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
 				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
@@ -219,7 +219,7 @@ int main() {
 
 				ClearBackground(BLACK);
 
-				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawCircle(ballposx, ballposy, ballradius, RED);
 				DrawTextureEx(texture, {ballposx-9,ballposy-9}, 1,0.15,RED);
 				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
 				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
