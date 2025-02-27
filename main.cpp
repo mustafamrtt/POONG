@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "raylib.h"
-#include <time.h>
+
 
 int main() {
 
@@ -22,6 +22,10 @@ int main() {
 	char scoreleft = '0';
 	char scoreright = '0';
 	int player = 0;
+	Image image =  LoadImage("ball.jpeg");
+	Texture2D texture =  LoadTextureFromImage(image);
+
+
 	
 	float singlepbuttonpos = GetScreenHeight() / 2 +50 ;
 	float twopbuttonpos = GetScreenHeight() / 2 +100;
@@ -48,11 +52,14 @@ int main() {
 				right_racket_posy += r_racket_speed;
 			}
 			if (ballposy == GetScreenHeight() || ballposy == 0) {
+				
 				ballspeedy = -ballspeedy;
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
+				if(ballspeedx<6)
 				ballspeedx = -ballspeedx * 1.1;
+				
 
 
 
@@ -61,7 +68,7 @@ int main() {
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
-
+				if(ballspeedx<6)
 				ballspeedx = -ballspeedx * 1.1;
 
 
@@ -72,7 +79,7 @@ int main() {
 				ballposy = GetScreenHeight() / 2;
 				ballspeedx = -3;
 				ballspeedy = -3;
-				scoreright++;
+				scoreleft++;
 
 			}
 			if (ballposx > GetScreenWidth()) {
@@ -80,14 +87,14 @@ int main() {
 				ballposy = GetScreenHeight() / 2;
 				ballspeedx = 3;
 				ballspeedy = 3;
-				scoreleft++;
+				scoreright++;
 			}
 
 			if (scoreleft > 56 || scoreright > 56) {
 				game_over = 1;
 				BeginDrawing();
 				ClearBackground(RED);
-				DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
+				DrawText("Game Over", GetScreenWidth() / 2-200, GetScreenHeight() / 2-200, 100, WHITE);
 				EndDrawing();
 				if (IsKeyPressed(KEY_SPACE)) {
 					game_over = 0;
@@ -105,8 +112,8 @@ int main() {
 				DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
 
 				ClearBackground(BLACK);
-
 				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawTextureEx(texture, { ballposx - 9,ballposy - 9 }, 1, 0.15, RED);
 				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
 				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
 
@@ -128,18 +135,36 @@ int main() {
 			if (IsKeyDown(KEY_S) && left_racket_posy < GetScreenHeight() - 150) {
 				left_racket_posy += l_racket_speed;
 			}
-			if (ballposy>right_racket_posy&& right_racket_posy<GetScreenHeight()-150&&ballposx>500) {
+			if (ballposy>right_racket_posy&&ballposx>200&&right_racket_posy<GetScreenHeight()-150) {
+				if (ballspeedy >= 3 && ballposy > 650) {
+
+
+				}
+				else {
+
+
+
+					right_racket_posy += r_racket_speed;
+				}
+
 				
-				right_racket_posy += r_racket_speed;
 			}
-			if (ballposy<right_racket_posy&&ballposx>500) {
-				right_racket_posy -= r_racket_speed;
+			
+			if (ballposy < right_racket_posy  && ballposx > 200) {
+				if (ballspeedy >= 3 && ballposy < 100) {
+					
+				}
+				else {
+					right_racket_posy -= r_racket_speed;
+				}
 			}
-			if (ballposy == GetScreenHeight() || ballposy == 0) {
+			if (ballposy >= GetScreenHeight() || ballposy <= 0) {
+				
 				ballspeedy = -ballspeedy;
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
+				if(ballspeedx<6)
 				ballspeedx = -ballspeedx * 1.1;
 
 
@@ -149,9 +174,9 @@ int main() {
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
-
-				ballspeedx = -ballspeedx * 1.1;
-
+				if (ballspeedx < 6) 
+					ballspeedx = -ballspeedx * 1.01;
+				
 
 
 			}
@@ -160,7 +185,7 @@ int main() {
 				ballposy = GetScreenHeight() / 2;
 				ballspeedx = -3;
 				ballspeedy = -3;
-				scoreright++;
+				scoreleft++;
 
 			}
 			if (ballposx > GetScreenWidth()) {
@@ -168,14 +193,14 @@ int main() {
 				ballposy = GetScreenHeight() / 2;
 				ballspeedx = 3;
 				ballspeedy = 3;
-				scoreleft++;
+				scoreright++;
 			}
 
 			if (scoreleft > 56 || scoreright > 56) {
 				game_over = 1;
 				BeginDrawing();
 				ClearBackground(RED);
-				DrawText("Game Over", GetScreenWidth() / 2, GetScreenHeight() / 2, 100, WHITE);
+				DrawText("Game Over", GetScreenWidth() / 2-200, GetScreenHeight() / 2-200, 100, WHITE);
 				EndDrawing();
 				if (IsKeyPressed(KEY_SPACE)) {
 					game_over = 0;
@@ -195,6 +220,7 @@ int main() {
 				ClearBackground(BLACK);
 
 				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
+				DrawTextureEx(texture, {ballposx-9,ballposy-9}, 1,0.15,RED);
 				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
 				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
 
