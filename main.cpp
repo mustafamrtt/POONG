@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "raylib.h"
-
+#include <time.h>
 
 int main() {
 
@@ -68,8 +68,17 @@ int main() {
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
-				if(ballspeedx<6)
-				ballspeedx = -ballspeedx * 1.1;
+				if (ballspeedx < 6) {
+					
+						ballspeedx = -ballspeedx * 1.1;
+					
+					
+
+				}
+				if (ballposy > left_racket_posy) 
+					ballspeedy = -ballspeedy;
+				if (ballposy > left_racket_posy)
+					ballspeedy = -ballspeedy;
 
 
 
@@ -112,7 +121,7 @@ int main() {
 				DrawText("POONG", GetScreenWidth() / 2, GetScreenHeight() / 2, 25, RED);
 
 				ClearBackground(BLACK);
-				DrawCircle(ballposx, ballposy, ballradius, RED);
+				DrawCircle(ballposx, ballposy, ballradius, DARKGREEN);
 				DrawTextureEx(texture, { ballposx - 9,ballposy - 9 }, 1, 0.15, RED);
 				DrawRectangle(left_racket_posx, left_racket_posy, left_racketwidth, 150, RAYWHITE);
 				DrawRectangle(right_racket_posx, right_racket_posy, right_racketwidth, 150, RAYWHITE);
@@ -135,28 +144,21 @@ int main() {
 			if (IsKeyDown(KEY_S) && left_racket_posy < GetScreenHeight() - 150) {
 				left_racket_posy += l_racket_speed;
 			}
-			if (ballposy>right_racket_posy&&ballposx>200&&right_racket_posy<GetScreenHeight()-150) {
-				if (ballspeedy >= 3 && ballposy > 650) {
-
-
-				}
-				else {
-
-
+			if (ballposy>right_racket_posy&&ballposx>300&&right_racket_posy<GetScreenHeight()-150) {
+				if (!(ballspeedy >= 3 && ballposy > 650)) {
 
 					right_racket_posy += r_racket_speed;
 				}
+				
 
 				
 			}
 			
-			if (ballposy < right_racket_posy  && ballposx > 200) {
-				if (ballspeedy >= 3 && ballposy < 100) {
-					
-				}
-				else {
+			if (ballposy < right_racket_posy  && ballposx > 300) {
+				if (!(ballspeedy >= 3 && ballposy < 150)) {
 					right_racket_posy -= r_racket_speed;
 				}
+				
 			}
 			if (ballposy >= GetScreenHeight() || ballposy <= 0) {
 				
@@ -164,8 +166,9 @@ int main() {
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ right_racket_posx - right_racketwidth / 2,right_racket_posy,right_racketwidth,150 })) {
-				if(ballspeedx<6)
-				ballspeedx = -ballspeedx * 1.1;
+				if (ballspeedx < 6)
+					ballspeedx = -ballspeedx * 1.1;
+				
 
 
 
@@ -174,8 +177,8 @@ int main() {
 
 			}
 			if (CheckCollisionCircleRec(Vector2{ ballposx,ballposy }, ballradius, Rectangle{ left_racket_posx - left_racketwidth / 2,left_racket_posy,left_racketwidth,150 })) {
-				if (ballspeedx < 6) 
-					ballspeedx = -ballspeedx * 1.01;
+				if (ballspeedx < 6)
+					ballspeedx = -ballspeedx * 1.1;
 				
 
 
