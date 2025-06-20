@@ -30,14 +30,21 @@ POONG is a simple two-player Pong clone developed in C using the raylib graphics
 1. Install `raylib` (example for Debian-based systems):
 
 ```bash
+
 sudo apt install libraylib-dev
+
+
+2.Clone the repoaitory:
+
+```bash
+
 git clone https://github.com/mustafamrtt/POONG.git
 cd POONG
+
+3.Compile and run
+
+```bash
+
 gcc main.c -o poong -lraylib -lm -ldl -lpthread -lGL
 ./poong
-pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-raylib
-gcc main.c -o poong -lraylib -lopengl32 -lgdi32 -lwinmm
-
-
-
 
