@@ -34,7 +34,7 @@ POONG is a simple two-player Pong clone developed in C using the raylib graphics
 sudo apt install libraylib-dev
 
 ```
-2.Clone the repoaitory:
+2.Clone the repository:
 
 ```bash
 
