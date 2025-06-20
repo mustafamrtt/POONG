@@ -1,21 +1,13 @@
-# POONG
-Pong Game using Raylib
-Features:
-Single player, Two Player mods.
-Simple, responsive controls
-Basic collision detection and scoring system
-Retro style graphics
-Technologies:
-Language: C
-Library: Raylib
 
-# 🏓 POONG
+![image](https://github.com/user-attachments/assets/fc50217f-bede-41cc-9dd9-d7b21de5831f)
+![image](https://github.com/user-attachments/assets/36db3e4b-0bb7-4831-843b-346d994a9002)
+#  POONG
 
-**POONG** is a simple two-player Pong clone developed in **C** using the **raylib** graphics library. It provides a minimal yet fun retro-style arcade experience.
+POONG is a simple two-player Pong clone developed in C using the raylib graphics library. It provides a minimal yet fun retro-style arcade experience.
 
 ---
 
-## 🎮 Features
+## Features
 
 -  Local 2-player mode
 - Basic score tracking
@@ -48,5 +40,4 @@ gcc main.c -o poong -lraylib -lopengl32 -lgdi32 -lwinmm
 
 
 
-![image](https://github.com/user-attachments/assets/fc50217f-bede-41cc-9dd9-d7b21de5831f)
-![image](https://github.com/user-attachments/assets/36db3e4b-0bb7-4831-843b-346d994a9002)
+
